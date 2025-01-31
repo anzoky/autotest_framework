@@ -20,6 +20,8 @@ class TextBoxPageLocators:
 
 class CheckBoxPageLocators:
 
+    # checkboxes - чекбоксы
+
     EXPAND_ALL_BUTTON = ('xpath', '//button[@class="rct-option rct-option-expand-all"]')
     ITEM_LIST = ('xpath', '//span[@class="rct-title"]')
     CHECKED_ITEMS = ('css selector', 'svg[class="rct-icon rct-icon-check"]')
@@ -27,7 +29,14 @@ class CheckBoxPageLocators:
     OUTPUT_RESULT = ('xpath', '//span[@class="text-success"]')
 
 
+class RadioButtonPageLocators:
 
+    # radiobuttons - радиокнопки
+
+    YES_RADIOBUTTON = ('xpath', '//label[@for="yesRadio"]')
+    IMPRESSIVE_RADIOBUTTON = ('xpath', '//label[@for="impressiveRadio"]')
+    NO_RADIOBUTTON = ('xpath', '//label[@for="noRadio"]')
+    OUTPUT_RADIOBUTTON_RESULT = ('xpath', '//span[@class="text-success"]')
 
 
 

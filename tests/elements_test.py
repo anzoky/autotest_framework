@@ -1,5 +1,5 @@
 import time
-from pages.elements_page import TextBoxPage, CheckBoxPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
 from conftest import driver
 
 
@@ -25,4 +25,18 @@ class TestElements:
             input_checkbox = check_box_page.get_checked_checkboxes()
             output_result = check_box_page.get_output_result()
             assert input_checkbox == output_result, 'checkboxes have not been selected - чекбоксы не были выбраны'
+
+    class TestRadioButton:
+        def test_radio_button(self, driver):
+            radio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
+            radio_button_page.open()
+            radio_button_page.click_on_the_radio_button('yes')
+            yes_result = radio_button_page.get_output_result_radiobutton()
+            radio_button_page.click_on_the_radio_button('impressive')
+            impressive_result = radio_button_page.get_output_result_radiobutton()
+            radio_button_page.click_on_the_radio_button('no')
+            no_result = radio_button_page.get_output_result_radiobutton()
+            assert yes_result == 'Yes', '"Yes" have not been selected'
+            assert impressive_result == 'Impressive', '"Impressive" have not been selected'
+            assert no_result == 'No', '"No" have not been selected'
 
