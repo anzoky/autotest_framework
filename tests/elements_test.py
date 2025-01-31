@@ -39,4 +39,3 @@ class TestElements:
             assert yes_result == 'Yes', '"Yes" have not been selected'
             assert impressive_result == 'Impressive', '"Impressive" have not been selected'
             assert no_result == 'No', '"No" have not been selected'
-
