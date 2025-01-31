@@ -39,6 +39,25 @@ class RadioButtonPageLocators:
     OUTPUT_RADIOBUTTON_RESULT = ('xpath', '//span[@class="text-success"]')
 
 
+class WebTablePageLocators:
+
+    # add person form - форма для добавления людей
+    ADD_BUTTON = ('xpath', '//button[@id="addNewRecordButton"]')
+    FIRST_NAME_INPUT = ('xpath', '//input[@id="firstName"]')
+    LASTNAME_INPUT = ('xpath', '//input[@id="lastName"]')
+    EMAIL_INPUT = ('xpath', '//input[@id="userEmail"]')
+    AGE_INPUT = ('xpath', '//input[@id="age"]')
+    SALARY_INPUT = ('xpath', '//input[@id="salary"]')
+    DEPARTMENT_INPUT = ('xpath', '//input[@id="department"]')
+    SUBMIT_BUTTON = ('xpath', '//button[@id="submit"]')
+
+    # table - таблица
+
+    FULL_PEOPLE_LIST = ('xpath', '//div[@class="rt-tr-group"]')
+    SEARCH_INPUT = ('xpath', '//input[@id="searchBox"]')
+    DELETE_BUTTON = ('xpath', '//span[@title="Delete"]')
+    ROW_PARENT = ('xpath', './/ancestor::div[@class="rt-tr-group"]')
+
 
 
 
