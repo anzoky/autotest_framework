@@ -119,3 +119,29 @@ class WebTablePage(BasePage):
         delete_button = self.element_is_present(self.locators.DELETE_BUTTON)
         row = delete_button.find_element(*self.locators.ROW_PARENT)
         return row.text.splitlines()
+
+    def update_person_info(self):
+        person_info = next(generated_person())
+        age = person_info.age
+        self.element_is_visible(self.locators.UPDATE_BUTTON).click()
+        self.element_is_visible(self.locators.AGE_INPUT).clear()
+        self.element_is_visible(self.locators.AGE_INPUT).send_keys(age)
+        self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
+        return age
+
+    def delete_person(self):
+        self.element_is_visible(self.locators.DELETE_BUTTON).click()
+
+    def check_deleted(self):
+        return self.element_is_present(self.locators.NO_ROWS_FOUND).text
+
+    def select_up_to_some_rows(self):
+        count = [5, 10, 20, 25, 50, 100]
+        data = []
+        for x in count:
+            number_of_rows = self.element_is_visible(self.locators.NUMBER_OF_ROWS)
+            self.go_to_element(number_of_rows)
+            number_of_rows.click()
+            self.element_is_visible(('css selector', f'option[value="{x}"]')).click()
+            data.append(len(self.element_are_present(self.locators.FULL_PEOPLE_LIST)))
+        return data
