@@ -2,7 +2,7 @@ import time
 import random
 from generator.generator import generated_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    WebTablePageLocators
+    WebTablePageLocators, ButtonsPageLocators
 from pages.base_page import BasePage
 
 
@@ -145,3 +145,23 @@ class WebTablePage(BasePage):
             self.element_is_visible(('css selector', f'option[value="{x}"]')).click()
             data.append(len(self.element_are_present(self.locators.FULL_PEOPLE_LIST)))
         return data
+
+
+class ButtonsPage(BasePage):
+
+    locators = ButtonsPageLocators()
+
+    def click_on_the_double_button(self):
+        self.action_double_click(self.element_is_visible(self.locators.DOUBLE_CLICK_BUTTON))
+        return self.check_clicked_on_the_button(self.locators.SUCCESS_DOUBLE)
+
+    def click_on_the_right_button(self):
+        self.action_right_click(self.element_is_visible(self.locators.RIGHT_CLICK_BUTTON))
+        return self.check_clicked_on_the_button(self.locators.SUCCESS_RIGHT)
+
+    def click_on_the_me_button(self):
+        self.element_is_visible(self.locators.CLICK_ME_BUTTON).click()
+        return self.check_clicked_on_the_button(self.locators.SUCCESS_CLICK_ME)
+
+    def check_clicked_on_the_button(self, element):
+        return self.element_is_present(element).text
