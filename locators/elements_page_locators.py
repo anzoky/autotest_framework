@@ -78,3 +78,6 @@ class ButtonsPageLocators:
     SUCCESS_CLICK_ME = ('xpath', '//p[@id="dynamicClickMessage"]')
 
 
+class LinksPageLocators:
+
+    SIMPLE_LINK = ('xpath', '//a[@id="simpleLink"]')

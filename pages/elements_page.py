@@ -1,8 +1,11 @@
 import time
 import random
+
+import requests
+
 from generator.generator import generated_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    WebTablePageLocators, ButtonsPageLocators
+    WebTablePageLocators, ButtonsPageLocators, LinksPageLocators
 from pages.base_page import BasePage
 
 
@@ -165,3 +168,24 @@ class ButtonsPage(BasePage):
 
     def check_clicked_on_the_button(self, element):
         return self.element_is_present(element).text
+
+
+class LinksPage(BasePage):
+
+    locators = LinksPageLocators()
+
+    def click_new_tab_simple_link(self):
+        simple_link = self.element_is_visible(self.locators.SIMPLE_LINK)
+        link_url = simple_link.get_attribute('href')
+
+        response = requests.get(link_url)
+        if response.status_code == 200:
+            simple_link.click()
+            self.driver.switch_to.window(self.driver.window_handles[1])
+            current_url = self.driver.current_url
+            return link_url, current_url
+        return link_url, response.status_code
+
+    def check_broken_link(self, url):
+        request = requests.get(url)
+        return request.status_code

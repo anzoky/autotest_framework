@@ -1,20 +1,24 @@
 import random
 import time
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage
+
+import pytest
+
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, \
+    LinksPage
 from conftest import driver
 
 
 class TestElements:
     class TestTextBox:
         def test_text_box(self, driver):
-            text_box_page = TextBoxPage(driver, "https://demoqa.com/text-box")
+            text_box_page = TextBoxPage(driver, 'https://demoqa.com/text-box')
             text_box_page.open()
             full_name, email, current_address, permanent_address = text_box_page.fill_all_fields()
             output_name, output_email, output_address, output_per_address = text_box_page.check_filled_form()
-            assert full_name == output_name, "name does not match"
-            assert email == output_email, "email does not match"
-            assert current_address == output_address, "current_address does not match"
-            assert permanent_address == output_per_address, "permanent_address does not match"
+            assert full_name == output_name, 'Name does not match'
+            assert email == output_email, 'Email does not match'
+            assert current_address == output_address, 'Current_address does not match'
+            assert permanent_address == output_per_address, 'Permanent_address does not match'
 
     class TestCheckBox:
 
@@ -25,7 +29,7 @@ class TestElements:
             check_box_page.click_random_checkbox()
             input_checkbox = check_box_page.get_checked_checkboxes()
             output_result = check_box_page.get_output_result()
-            assert input_checkbox == output_result, 'checkboxes have not been selected - чекбоксы не были выбраны'
+            assert input_checkbox == output_result, 'Checkboxes have not been selected - чекбоксы не были выбраны'
 
     class TestRadioButton:
         def test_radio_button(self, driver):
@@ -92,3 +96,25 @@ class TestElements:
             assert double == 'You have done a double click', 'The button has not done a double click'
             assert right == 'You have done a right click', 'The button has not done a right click'
             assert me_click == 'You have done a dynamic click', 'The button has not done a dynamic click'
+
+    class TestLinksPage:
+        def test_check_simple_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            href_link, current_url = links_page.click_new_tab_simple_link()
+            assert href_link == current_url, f"Expected URL: {href_link}, but got {current_url}"
+
+        @pytest.mark.parametrize("url, expected_status", [
+            ('https://demoqa.com/created', 201),
+            ('https://demoqa.com/no-content', 204),
+            ('https://demoqa.com/moved', 301),
+            ('https://demoqa.com/bad-request', 400),
+            ('https://demoqa.com/unauthorized', 401),
+            ('https://demoqa.com/forbidden', 403),
+            ('https://demoqa.com/invalid-url', 404),
+        ])
+        def test_check_links(self, driver, url, expected_status):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            response_code = links_page.check_broken_link(url)
+            assert response_code == expected_status, f'Status code for {url} is not {expected_status}'
