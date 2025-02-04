@@ -1,11 +1,13 @@
+import base64
+import os
 import time
 import random
 
 import requests
 
-from generator.generator import generated_person
+from generator.generator import generated_person, generated_file
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    WebTablePageLocators, ButtonsPageLocators, LinksPageLocators
+    WebTablePageLocators, ButtonsPageLocators, LinksPageLocators, UploadAndDownloadLocators
 from pages.base_page import BasePage
 
 
@@ -189,3 +191,39 @@ class LinksPage(BasePage):
     def check_broken_link(self, url):
         request = requests.get(url)
         return request.status_code
+
+
+class UploadAndDownloadPage(BasePage):
+
+    locators = UploadAndDownloadLocators()
+
+    def upload_file(self):
+        file_name, path = generated_file()
+        self.element_is_present(self.locators.UPLOAD_FILE).send_keys(path)
+        os.remove(path)
+        text = self.element_is_present(self.locators.UPLOADED_RESULT).text
+        return file_name.split('\\')[-1], text.split('\\')[-1]
+
+    def download_file(self):
+        # Получаем `href` ссылку на файл
+        link = self.element_is_present(self.locators.DOWNLOAD_FILE).get_attribute('href')
+
+        # Декодирование
+        base64_data = link.split(',')[1]
+        link_base = base64.b64decode(base64_data)
+
+        # Генерация уникального имени файла
+        path_name_file = rf'C:\autotest_framework\filetest_{random.randint(0, 999)}.jpeg'
+
+        # Запись данных в файл
+        with open(path_name_file, 'wb') as f:
+            offset = link_base.find(b'\xff\xd8')  # Начало JPEG-файла
+            f.write(link_base[offset:])
+
+        # Проверка существования файла
+        check_file = os.path.exists(path_name_file)
+
+        # Удаление файла, если он существукт
+        if check_file:
+            os.remove(path_name_file)
+        return check_file
