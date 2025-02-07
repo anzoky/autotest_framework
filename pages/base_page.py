@@ -42,3 +42,7 @@ class BasePage:
         action = ActionChains(self.driver)
         action.context_click(element)
         action.perform()
+
+    def switch_to_alert(self, timeout=5):
+        alert = wait(self.driver, timeout).until(EC.alert_is_present())
+        return self.driver.switch_to.alert
