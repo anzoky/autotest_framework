@@ -23,3 +23,11 @@ class FramesPageLocators:
     FIRST_FRAME = ('xpath', '//iframe[@id="frame1"]')
     SECOND_FRAME = ('xpath', '//iframe[@id="frame2"]')
     TITLE_FRAME = ('xpath', '//h1[@id="sampleHeading"]')
+
+
+class NestedFramesPageLocators:
+
+    PARENT_FRAME = ('xpath', '//iframe[@id="frame1"]')
+    PARENT_TEXT = ('css selector', 'body')
+    CHILD_FRAME = ('xpath', '//iframe[@srcdoc="<p>Child Iframe</p>"]')
+    CHILD_TEXT = ('xpath', '//p[text()="Child Iframe"]')
