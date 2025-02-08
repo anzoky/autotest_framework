@@ -16,3 +16,10 @@ class AlertsPageLocators:
 
     CONFIRM_RESULT = ('xpath', '//span[@id="confirmResult"]')
     PROMPT_RESULT = ('xpath', '//span[@id="promptResult"]')
+
+
+class FramesPageLocators:
+
+    FIRST_FRAME = ('xpath', '//iframe[@id="frame1"]')
+    SECOND_FRAME = ('xpath', '//iframe[@id="frame2"]')
+    TITLE_FRAME = ('xpath', '//h1[@id="sampleHeading"]')
