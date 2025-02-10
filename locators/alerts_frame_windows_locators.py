@@ -31,3 +31,15 @@ class NestedFramesPageLocators:
     PARENT_TEXT = ('css selector', 'body')
     CHILD_FRAME = ('xpath', '//iframe[@srcdoc="<p>Child Iframe</p>"]')
     CHILD_TEXT = ('xpath', '//p[text()="Child Iframe"]')
+
+
+class ModalDialogPageLocators:
+
+    SMALL_MODAL_BUTTON = ('xpath', '//button[@id="showSmallModal"]')
+    SMALL_MODAL_CLOSE_BUTTON = ('xpath', '//button[@id="closeSmallModal"]')
+    TITLE_SMALL_MODAL = ('xpath', '//div[@id="example-modal-sizes-title-sm"]')
+    BODY_SMALL_MODAL = ('xpath', '//div[@class="modal-body"]')
+    LARGE_MODAL_BUTTON = ('xpath', '//button[@id="showLargeModal"]')
+    LARGE_MODAL_CLOSE_BUTTON = ('xpath', '//button[@id="closeLargeModal"]')
+    TITLE_LARGE_MODAL = ('xpath', '//div[@id="example-modal-sizes-title-lg"]')
+    BODY_LARGE_MODAL = ('xpath', '//div[@class="modal-body"]')
