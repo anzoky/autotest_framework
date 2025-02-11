@@ -44,7 +44,7 @@ class CheckBoxPage(BasePage):
         self.element_is_visible(self.locators.EXPAND_ALL_BUTTON).click()
 
     def click_random_checkbox(self):
-        item_list = self.element_are_visible(self.locators.ITEM_LIST)
+        item_list = self.elements_are_visible(self.locators.ITEM_LIST)
         count = 15
         while count != 0:
             item = item_list[random.randint(1, 15)]
@@ -56,7 +56,7 @@ class CheckBoxPage(BasePage):
                 break
 
     def get_checked_checkboxes(self):
-        checked_list = self.element_are_present(self.locators.CHECKED_ITEMS)
+        checked_list = self.elements_are_present(self.locators.CHECKED_ITEMS)
         data = []
         for box in checked_list:
             title_item = box.find_element(*self.locators.TITLE_ITEM)
@@ -64,7 +64,7 @@ class CheckBoxPage(BasePage):
         return str(data).replace(' ', '').replace('.doc', '').lower()
 
     def get_output_result(self):
-        result_list = self.element_are_present(self.locators.OUTPUT_RESULT)
+        result_list = self.elements_are_present(self.locators.OUTPUT_RESULT)
         data = []
         for item in result_list:
             data.append(item.text)
@@ -112,7 +112,7 @@ class WebTablePage(BasePage):
         return [firstname, lastname, age, email, salary, department]
 
     def check_new_added_person(self):
-        person_list = self.element_are_present(self.locators.FULL_PEOPLE_LIST)
+        person_list = self.elements_are_present(self.locators.FULL_PEOPLE_LIST)
         data_person = []
         for item in person_list:
             data_person.append(item.text.splitlines())
@@ -149,7 +149,7 @@ class WebTablePage(BasePage):
             self.go_to_element(number_of_rows)
             number_of_rows.click()
             self.element_is_visible(('css selector', f'option[value="{x}"]')).click()
-            data.append(len(self.element_are_present(self.locators.FULL_PEOPLE_LIST)))
+            data.append(len(self.elements_are_present(self.locators.FULL_PEOPLE_LIST)))
         return data
 
 
