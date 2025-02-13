@@ -16,3 +16,20 @@ class AutoCompletePageLocators:
     MULTI_REMOVE = ('xpath', '//div[@class="css-xb97g8 auto-complete__multi-value__remove"]')
     SINGLE_INPUT = ('xpath', '//input[@id="autoCompleteSingleInput"]')
     SINGLE_VALUE = ('xpath', '//div[@class="auto-complete__single-value css-1uccc91-singleValue"]')
+
+
+class DataPickerPageLocators:
+
+    # select date locators
+    DATE_INPUT = ('xpath', '//input[@id="datePickerMonthYearInput"]')
+    DATE_SELECT_MONTH = ('xpath', '//select[@class="react-datepicker__month-select"]')
+    DATE_SELECT_YEAR = ('xpath', '//select[@class="react-datepicker__year-select"]')
+    DATE_SELECT_DAY_LIST = ('css selector', 'div[class^="react-datepicker__day react-datepicker__day"]')
+
+    # date and time locators
+    INPUT_DATE_AND_TIME = ('xpath', '//input[@id="dateAndTimePickerInput"]')
+    MONTH_DATE_AND_TIME = ('xpath', '//div[@class="react-datepicker__month-read-view"]')
+    YEAR_DATE_AND_TIME = ('xpath', '//div[@class="react-datepicker__year-read-view"]')
+    TIME_DATE_AND_TIME_LIST = ('xpath', '//li[@class="react-datepicker__time-list-item "]')
+    MONTH_DATE_AND_TIME_LIST = ('xpath', '//div[@class="react-datepicker__month-option"]')
+    YEAR_DATE_AND_TIME_LIST = ('xpath', '//div[@class="react-datepicker__year-option"]')

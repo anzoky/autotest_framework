@@ -1,7 +1,7 @@
 import time
 
 from conftest import driver
-from pages.widgets_page import AccordianPage, AutoCompletePage
+from pages.widgets_page import AccordianPage, AutoCompletePage, DataPickerPage
 
 
 class TestWidgets:
@@ -48,3 +48,18 @@ class TestWidgets:
             color_result = auto_complete_page.check_color_in_single()
             assert color == color_result, 'Added colors were missing in the input'
 
+    class TestDataPickerPage:
+
+        def test_change_date(self, driver):
+            date_picker_page = DataPickerPage(driver, 'https://demoqa.com/date-picker')
+            date_picker_page.open()
+            value_date_before, value_date_after = date_picker_page.select_date()
+            assert value_date_before != value_date_after, 'The date has not been changed'
+
+        def test_change_date_and_time(self, driver):
+            date_picker_page = DataPickerPage(driver, 'https://demoqa.com/date-picker')
+            date_picker_page.open()
+            value_date_before, value_date_after = date_picker_page.select_date_and_time()
+            print(value_date_before)
+            print(value_date_after)
+            assert value_date_before != value_date_after, 'The date and time have not been changed'
