@@ -1,7 +1,7 @@
 import time
 
 from conftest import driver
-from pages.widgets_page import AccordianPage, AutoCompletePage, DataPickerPage
+from pages.widgets_page import AccordianPage, AutoCompletePage, DataPickerPage, SliderPage, ProgressBarPage
 
 
 class TestWidgets:
@@ -63,3 +63,19 @@ class TestWidgets:
             print(value_date_before)
             print(value_date_after)
             assert value_date_before != value_date_after, 'The date and time have not been changed'
+
+    class TestSliderPage:
+
+        def test_slider(self, driver):
+            slider = SliderPage(driver, 'https://demoqa.com/slider')
+            slider.open()
+            slider_before, slider_after = slider.change_slider_value()
+            assert slider_before != slider_after, 'The slider value has not been changed'
+
+    class TestProgressBarPage:
+
+        def test_progress_bar(self, driver):
+            progress_bar = ProgressBarPage(driver, 'https://demoqa.com/progress-bar')
+            progress_bar.open()
+            progress_bar_before, progress_bar_after = progress_bar.change_progress_bar_value()
+            assert progress_bar_before != progress_bar_after,  'The progress bar value has not been changed'

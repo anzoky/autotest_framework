@@ -33,3 +33,15 @@ class DataPickerPageLocators:
     TIME_DATE_AND_TIME_LIST = ('xpath', '//li[@class="react-datepicker__time-list-item "]')
     MONTH_DATE_AND_TIME_LIST = ('xpath', '//div[@class="react-datepicker__month-option"]')
     YEAR_DATE_AND_TIME_LIST = ('xpath', '//div[@class="react-datepicker__year-option"]')
+
+
+class SliderPageLocators:
+
+    INPUT_SLIDER = ('xpath', '//input[@class="range-slider range-slider--primary"]')
+    VALUE_SLIDER = ('xpath', '//input[@id="sliderValue"]')
+
+
+class ProgressBarPageLocators:
+
+    PROGRESS_BAR_BUTTON = ('xpath', '//button[@id="startStopButton"]')
+    PROGRESS_BAR_VALUE = ('xpath', '//div[@class="progress-bar bg-info"]')
