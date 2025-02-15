@@ -86,26 +86,15 @@ class TestWidgets:
 
     class TestTabsPage:
 
-        def test_what_tab(self, driver):
+        @pytest.mark.parametrize('tab_button, expected_title', [
+            ('what', 'What'),
+            ('origin', 'Origin'),
+            ('use', 'Use'),
+            ('more', 'More')
+        ])
+        def test_tabs(self, driver, tab_button, expected_title):
             tab = TabsPage(driver, 'https://demoqa.com/tabs')
             tab.open()
-            what_button, what_content = tab.check_tabs('what')
-            assert what_button == 'What' and what_content != 0, 'The tab "What" was not pressed or the text is missing'
-
-        def test_origin_tab(self, driver):
-            tab = TabsPage(driver, 'https://demoqa.com/tabs')
-            tab.open()
-            origin_button, origin_content = tab.check_tabs('origin')
-            assert origin_button == 'Origin' and origin_content != 0, 'The tab "Orgin" was not pressed or the text is missing'
-
-        def test_use_tab(self, driver):
-            tab = TabsPage(driver, 'https://demoqa.com/tabs')
-            tab.open()
-            use_button, use_content = tab.check_tabs('use')
-            assert use_button == 'Use' and use_content != 0, 'The tab "Use" was not pressed or the text is missing'
-
-        def test_more_tab(self, driver):
-            tab = TabsPage(driver, 'https://demoqa.com/tabs')
-            tab.open()
-            more_button, more_content = tab.check_tabs('more')
-            assert more_button == 'More' and more_content != 0, 'The tab "More" was not pressed or the text is missing'
+            tab_title, content_title = tab.check_tabs(tab_button)
+            assert tab_title == expected_title, f'Incorrect title for {tab_title} tab.'
+            assert content_title > 0, f'Content is missing for {tab_title} tab.'
