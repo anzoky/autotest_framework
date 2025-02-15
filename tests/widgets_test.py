@@ -1,7 +1,7 @@
 import time
 
 from conftest import driver
-from pages.widgets_page import AccordianPage, AutoCompletePage, DataPickerPage, SliderPage, ProgressBarPage
+from pages.widgets_page import AccordianPage, AutoCompletePage, DataPickerPage, SliderPage, ProgressBarPage, TabsPage
 
 
 class TestWidgets:
@@ -79,3 +79,29 @@ class TestWidgets:
             progress_bar.open()
             progress_bar_before, progress_bar_after = progress_bar.change_progress_bar_value()
             assert progress_bar_before != progress_bar_after,  'The progress bar value has not been changed'
+
+    class TestTabsPage:
+
+        def test_what_tab(self, driver):
+            tab = TabsPage(driver, 'https://demoqa.com/tabs')
+            tab.open()
+            what_button, what_content = tab.check_tabs('what')
+            assert what_button == 'What' and what_content != 0, 'The tab "What" was not pressed or the text is missing'
+
+        def test_origin_tab(self, driver):
+            tab = TabsPage(driver, 'https://demoqa.com/tabs')
+            tab.open()
+            origin_button, origin_content = tab.check_tabs('origin')
+            assert origin_button == 'Origin' and origin_content != 0, 'The tab "Orgin" was not pressed or the text is missing'
+
+        def test_use_tab(self, driver):
+            tab = TabsPage(driver, 'https://demoqa.com/tabs')
+            tab.open()
+            use_button, use_content = tab.check_tabs('use')
+            assert use_button == 'Use' and use_content != 0, 'The tab "Use" was not pressed or the text is missing'
+
+        def test_more_tab(self, driver):
+            tab = TabsPage(driver, 'https://demoqa.com/tabs')
+            tab.open()
+            more_button, more_content = tab.check_tabs('more')
+            assert more_button == 'More' and more_content != 0, 'The tab "More" was not pressed or the text is missing'

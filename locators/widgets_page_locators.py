@@ -45,3 +45,15 @@ class ProgressBarPageLocators:
 
     PROGRESS_BAR_BUTTON = ('xpath', '//button[@id="startStopButton"]')
     PROGRESS_BAR_VALUE = ('xpath', '//div[@class="progress-bar bg-info"]')
+
+
+class TabsPageLocators:
+
+    TABS_WHAT = ('xpath', '//a[@id="demo-tab-what"]')
+    TABS_WHAT_CONTENT = ('xpath', '//div[@id="demo-tabpane-what"]')
+    TABS_ORIGIN = ('xpath', '//a[@id="demo-tab-origin"]')
+    TABS_ORIGIN_CONTENT = ('xpath', '//div[@id="demo-tabpane-origin"]')
+    TABS_USE = ('xpath', '//a[@id="demo-tab-use"]')
+    TABS_USE_CONTENT = ('xpath', '//div[@id="demo-tabpane-use"]')
+    TABS_MORE = ('xpath', '//a[@id="demo-tab-more"]')
+    TABS_MORE_CONTENT = ('xpath', '//div[@id="demo-tabpane-more"]')
