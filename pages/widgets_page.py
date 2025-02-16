@@ -7,7 +7,7 @@ from selenium.webdriver.support.select import Select
 
 from generator.generator import generated_color, generated_date
 from locators.widgets_page_locators import AccordianPageLocators, AutoCompletePageLocators, DataPickerPageLocators, \
-    SliderPageLocators, ProgressBarPageLocators, TabsPageLocators
+    SliderPageLocators, ProgressBarPageLocators, TabsPageLocators, ToolTipsPageLocators
 from pages.base_page import BasePage
 
 
@@ -167,3 +167,21 @@ class TabsPage(BasePage):
         button.click()
         content = self.element_is_visible(tabs[tab]['content']).text
         return button.text, len(content)
+
+
+class ToolTipsPage(BasePage):
+
+    locators = ToolTipsPageLocators()
+
+    def get_text_from_tool_tips(self, hover_elem, wait_elem):
+        element = self.element_is_present(hover_elem)
+        self.action_move_to_element(element)
+        self.element_is_visible(wait_elem)
+        tool_tip_text = self.element_is_visible(self.locators.TOOL_TIPS_INNERS)
+        text = tool_tip_text.text
+        return text
+
+    def check_tool_tips(self, hover_elem, wait_elem):
+        element = self.element_is_present(hover_elem)
+        self.go_to_element(element)
+        return self.get_text_from_tool_tips(hover_elem, wait_elem)

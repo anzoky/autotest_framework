@@ -3,7 +3,8 @@ import time
 import pytest
 
 from conftest import driver
-from pages.widgets_page import AccordianPage, AutoCompletePage, DataPickerPage, SliderPage, ProgressBarPage, TabsPage
+from pages.widgets_page import AccordianPage, AutoCompletePage, DataPickerPage, SliderPage, ProgressBarPage, TabsPage, \
+    ToolTipsPage
 
 
 class TestWidgets:
@@ -98,3 +99,17 @@ class TestWidgets:
             tab_title, content_title = tab.check_tabs(tab_button)
             assert tab_title == expected_title, f'Incorrect title for {tab_title} tab.'
             assert content_title > 0, f'Content is missing for {tab_title} tab.'
+
+    class TestToolTipsPage:
+
+        @pytest.mark.parametrize('hover_elem, wait_elem, expected_text', [
+            (ToolTipsPage.locators.HOVER_BUTTON, ToolTipsPage.locators.HOVER_BUTTON_TOOL_TIP, 'You hovered over the Button'),
+            (ToolTipsPage.locators.HOVER_INPUT, ToolTipsPage.locators.HOVER_INPUT_TOOL_TIP, 'You hovered over the text field'),
+            (ToolTipsPage.locators.LINK_CONTRARY, ToolTipsPage.locators.LINK_CONTRARY_TOOL_TIP, 'You hovered over the Contrary'),
+            (ToolTipsPage.locators.LINK_FIGURES, ToolTipsPage.locators.LINK_FIGURES_TOOL_TIP, 'You hovered over the 1.10.32')
+        ])
+        def test_tool_tips(self, driver, hover_elem, wait_elem, expected_text):
+            tool_tips_page = ToolTipsPage(driver, 'https://demoqa.com/tool-tips')
+            tool_tips_page.open()
+            actual_text = tool_tips_page.check_tool_tips(hover_elem, wait_elem)
+            assert actual_text == expected_text, f'Expected "{expected_text}", but got "{actual_text}"'
