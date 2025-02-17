@@ -74,3 +74,8 @@ class ToolTipsPageLocators:
     LINK_FIGURES_TOOL_TIP = ('xpath', '//div[@id="sectionToolTip"]')
 
     TOOL_TIPS_INNERS = ('xpath', '//div[@class="tooltip-inner"]')
+
+
+class MenuPageLocators:
+
+    MENU_ITEM_LIST = ('css selector', 'ul[id="nav"] li a')
