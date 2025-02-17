@@ -7,7 +7,8 @@ from selenium.webdriver.support.select import Select
 
 from generator.generator import generated_color, generated_date
 from locators.widgets_page_locators import AccordianPageLocators, AutoCompletePageLocators, DataPickerPageLocators, \
-    SliderPageLocators, ProgressBarPageLocators, TabsPageLocators, ToolTipsPageLocators, MenuPageLocators
+    SliderPageLocators, ProgressBarPageLocators, TabsPageLocators, ToolTipsPageLocators, MenuPageLocators, \
+    SelectMenuPageLocators
 from pages.base_page import BasePage
 
 
@@ -199,3 +200,55 @@ class MenuPage(BasePage):
             data.append(item.text)
         return data
 
+
+class SelectMenuPage(BasePage):
+
+    locators = SelectMenuPageLocators()
+
+    def select_value(self):
+        select_option = self.element_is_visible(self.locators.SELECT_VALUE_INPUT)
+        select_option.click()
+        values = self.elements_are_visible(self.locators.SELECT_VALUE_OPTIONS)
+        send_value = random.choice(values)
+        text = send_value.text
+        send_value.click()
+        return text
+
+    def check_select_value(self):
+        selected_option = self.element_is_visible(self.locators.SELECT_VALUE_RESULT)
+        return selected_option.text
+
+    def select_one(self):
+        select_title = self.element_is_visible(self.locators.SELECT_ONE_INPUT)
+        select_title.click()
+        title = self.elements_are_visible(self.locators.SELECT_ONE_OPTIONS)
+        send_value = random.choice(title)
+        text = send_value.text
+        send_value.click()
+        return text
+
+    def check_select_one(self):
+        selected_title = self.element_is_visible(self.locators.SELECT_ONE_RESULT)
+        return selected_title.text
+
+    def input_color(self):
+        color = self.element_is_visible(self.locators.SELECT_MENU_COLOR)
+        color.click()
+        choose_color = self.element_is_visible(self.locators.COLOR)
+        choose_color.click()
+        return choose_color.text
+
+    def check_color(self):
+        color = self.element_is_visible(self.locators.SELECT_MENU_COLOR)
+        selected_color = Select(color)
+        return selected_color.first_selected_option.text
+
+    def choose_car(self):
+        car = self.element_is_present(self.locators.CHOOSE_CAR)
+        car.click()
+        return car.text
+
+    def check_car(self):
+        car = self.element_is_visible(self.locators.STANDARD_MULTI_SELECT_FOR_CARS)
+        selected_car = Select(car)
+        return selected_car.first_selected_option.text

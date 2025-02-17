@@ -4,7 +4,7 @@ import pytest
 
 from conftest import driver
 from pages.widgets_page import AccordianPage, AutoCompletePage, DataPickerPage, SliderPage, ProgressBarPage, TabsPage, \
-    ToolTipsPage, MenuPage
+    ToolTipsPage, MenuPage, SelectMenuPage
 
 
 class TestWidgets:
@@ -124,3 +124,33 @@ class TestWidgets:
                                'Sub Item', 'SUB SUB LIST »',
                                'Sub Sub Item 1', 'Sub Sub Item 2', 'Main Item 3']
             assert data == expected_result, 'The expected result does not match the actual result'
+
+    class TestSelectMenuPage:
+
+        def test_select_value(self, driver):
+            select_menu = SelectMenuPage(driver, 'https://demoqa.com/select-menu')
+            select_menu.open()
+            selected_option = select_menu.select_value()
+            selected_result = select_menu.check_select_value()
+            assert selected_option == selected_result, 'Selected option does not match with selected result'
+
+        def test_select_one(self, driver):
+            select_menu = SelectMenuPage(driver, 'https://demoqa.com/select-menu')
+            select_menu.open()
+            selected_title = select_menu.select_one()
+            selected_result = select_menu.check_select_one()
+            assert selected_title == selected_result, 'Selected title does not match with selected result'
+
+        def test_input_color(self, driver):
+            select_menu = SelectMenuPage(driver, 'https://demoqa.com/select-menu')
+            select_menu.open()
+            input_color = select_menu.input_color()
+            color_result = select_menu.check_color()
+            assert input_color == color_result, 'The colors does not match'
+
+        def test_choose_car(self, driver):
+            select_menu = SelectMenuPage(driver, 'https://demoqa.com/select-menu')
+            select_menu.open()
+            car_input = select_menu.choose_car()
+            car_result = select_menu.check_car()
+            assert car_input == car_result, 'The cars does not match'

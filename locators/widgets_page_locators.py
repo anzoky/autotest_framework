@@ -1,3 +1,5 @@
+import random
+
 
 class AccordianPageLocators:
 
@@ -79,3 +81,23 @@ class ToolTipsPageLocators:
 class MenuPageLocators:
 
     MENU_ITEM_LIST = ('css selector', 'ul[id="nav"] li a')
+
+
+class SelectMenuPageLocators:
+
+    #list for cars
+    cars = ['Volvo', 'Saab', 'Opel', 'Audi']
+
+    SELECT_VALUE_INPUT = ('xpath', '//div[@id="withOptGroup"]')
+    SELECT_VALUE_OPTIONS = ('xpath', '//div[contains(@id, "react-select-2-option-")]')
+    SELECT_VALUE_RESULT = ('xpath', '//div[@class=" css-1uccc91-singleValue"]')
+
+    SELECT_ONE_INPUT = ('xpath', '//div[@id="selectOne"]')
+    SELECT_ONE_OPTIONS = ('xpath', '//div[contains(@id, "react-select-3-option-")]')
+    SELECT_ONE_RESULT = ('xpath', '//div[@class=" css-1uccc91-singleValue"]')
+
+    SELECT_MENU_COLOR = ('xpath', '//select[@id="oldSelectMenu"]')
+    COLOR = ('xpath', f'//option[@value="{random.randint(1, 10)}"]')
+
+    STANDARD_MULTI_SELECT_FOR_CARS = ('xpath', '//select[@id="cars"]')
+    CHOOSE_CAR = ('xpath', f'//option[text()="{cars[random.randint(0, 3)]}"]')
