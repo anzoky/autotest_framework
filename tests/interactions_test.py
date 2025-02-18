@@ -1,5 +1,5 @@
 from conftest import driver
-from pages.interactions_page import SortablePage
+from pages.interactions_page import SortablePage, SelectablePage
 
 
 class TestInteractions:
@@ -18,3 +18,18 @@ class TestInteractions:
             grid_before, grid_after = sortable_page.change_grid_order()
             assert grid_before != grid_after, 'The order of list has not been changed'
 
+    class TestSelectablePage:
+
+        def test_selectable_list(self, driver):
+            selectable_page = SelectablePage(driver, 'https://demoqa.com/selectable')
+            selectable_page.open()
+            active_elem, inactive_elem = selectable_page.select_list_item()
+            assert active_elem not in inactive_elem, 'Element was not selected'
+            assert active_elem, 'Active element is empty or None'
+
+        def test_selectable_grid(self, driver):
+            selectable_page = SelectablePage(driver, 'https://demoqa.com/selectable')
+            selectable_page.open()
+            active_elem, inactive_elem = selectable_page.select_grid_item()
+            assert active_elem not in inactive_elem, 'TElement was not selected'
+            assert active_elem, 'Active element is empty or None'
