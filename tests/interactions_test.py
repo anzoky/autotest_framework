@@ -1,5 +1,5 @@
 from conftest import driver
-from pages.interactions_page import SortablePage, SelectablePage
+from pages.interactions_page import SortablePage, SelectablePage, ResizablePage
 
 
 class TestInteractions:
@@ -33,3 +33,18 @@ class TestInteractions:
             active_elem, inactive_elem = selectable_page.select_grid_item()
             assert active_elem not in inactive_elem, 'TElement was not selected'
             assert active_elem, 'Active element is empty or None'
+
+    class TestResizablePage:
+
+        def test_resizable_box(self, driver):
+            resizable_page = ResizablePage(driver, 'https://demoqa.com/resizable')
+            resizable_page.open()
+            max_box, min_box = resizable_page.change_size_resizable_box()
+            assert ('500px', '300px') == max_box, 'Maximum size not equal to 500px, 300px'
+            assert ('150px', '150px') == min_box, 'Minimum size not equal to 150px, 150px'
+
+        def test_resizable(self, driver):
+            resizable_page = ResizablePage(driver, 'https://demoqa.com/resizable')
+            resizable_page.open()
+            max_size, min_size = resizable_page.change_size_resizable()
+            assert min_size != max_size, 'Resizable has not been changed'

@@ -17,3 +17,14 @@ class SelectablePageLocators:
     GRID_ITEM = ('xpath', '//li[@class="list-group-item list-group-item-action"]')
     GRID_ITEM_ACTIVE = ('xpath', '//div[@id="demo-tabpane-grid"] '
                                  '//li[@class="list-group-item active list-group-item-action"]')
+
+
+class ResizablePageLocators:
+
+    CONSTRAINT_AREA = ('xpath', '//div[@class="constraint-area"]')
+    RESIZABLE_BOX_HANDLE = ('xpath', '//div[@id="resizableBoxWithRestriction"]'
+                                     ' //span[@class="react-resizable-handle react-resizable-handle-se"]')
+    RESIZABLE_BOX = ('xpath', '//div[@id="resizableBoxWithRestriction"]')
+    RESIZABLE_HANDLE = ('xpath', '//div[@id="resizable"]'
+                                 ' //span[@class="react-resizable-handle react-resizable-handle-se"]')
+    RESIZABLE = ('xpath', '//div[@id="resizable"]')
