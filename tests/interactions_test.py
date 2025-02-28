@@ -1,5 +1,7 @@
+import pytest
+
 from conftest import driver
-from pages.interactions_page import SortablePage, SelectablePage, ResizablePage
+from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage
 
 
 class TestInteractions:
@@ -48,3 +50,50 @@ class TestInteractions:
             resizable_page.open()
             max_size, min_size = resizable_page.change_size_resizable()
             assert min_size != max_size, 'Resizable has not been changed'
+
+    class TestDroppablePage:
+
+        def test_simple_droppable(self, driver):
+            droppable_page = DroppablePage(driver, 'https://demoqa.com/droppable')
+            droppable_page.open()
+            text = droppable_page.drop_simple()
+            assert text == 'Dropped!', 'The element has not been dropped'
+
+        @pytest.mark.parametrize(
+            'accept, expected_text', [
+                ('acceptable', 'Dropped!'),
+                ('not_acceptable', 'Drop here')
+            ]
+        )
+        def test_accept(self, driver, accept, expected_text):
+            droppable_page = DroppablePage(driver, 'https://demoqa.com/droppable')
+            droppable_page.open()
+            text = droppable_page.drop_acceptable(accept)
+            assert text == expected_text, f'The expected result is {expected_text}, but not {text}'
+
+        @pytest.mark.parametrize(
+            'inner, outer, expected_text_inner, expected_text_outer', [
+                ('not_greedy_inner', 'not_greedy_outer', 'Dropped!', 'Dropped!'),
+                ('greedy_inner', 'greedy_outer', 'Dropped!', 'Outer droppable')
+            ]
+        )
+        def test_prevent_propagation_droppable(self, driver, inner, outer, expected_text_inner, expected_text_outer):
+            droppable_page = DroppablePage(driver, 'https://demoqa.com/droppable')
+            droppable_page.open()
+            box_text, inner_box_text = droppable_page.drop_prevent_propagation(inner, outer)
+            assert box_text == expected_text_outer, f'Expected outer box text: "{expected_text_outer}", but got: "{box_text}"'
+            assert inner_box_text == expected_text_inner, f'Expected inner box text: "{expected_text_inner}", but got: "{inner_box_text}"'
+
+        @pytest.mark.parametrize('param_name', ['will_revert', 'not_revert'])
+        def test_revert_draggable_revert_droppable(self, driver, param_name):
+            droppable_page = DroppablePage(driver, 'https://demoqa.com/droppable')
+            droppable_page.open()
+            before_move, after_move = droppable_page.drop_revert_draggable(param_name)
+            if param_name == 'will_revert':
+                assert before_move != after_move, (
+                    'The element has not reverted!'
+                )
+            else:
+                assert before_move == after_move, (
+                    'The element has reverted!'
+                )
