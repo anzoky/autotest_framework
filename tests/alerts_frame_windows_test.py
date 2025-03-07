@@ -1,57 +1,73 @@
 import time
 
+import allure
+
 from pages.alerts_frame_windows_page import BrowserWindowPage, AlertsPage, FramesPage, NestedFramesPage, ModalDialogPage
 from conftest import driver
 
 
+@allure.suite('Alerts, Frame, Windows')
 class TestAlertsFrameWindow:
 
+    @allure.feature('BrowserWindows Page')
     class TestBrowserWindows:
+
+        @allure.title('Check "New Tab" button')
         def test_new_tab(self, driver):
             new_tab_page = BrowserWindowPage(driver, 'https://demoqa.com/browser-windows')
             new_tab_page.open()
             text_result = new_tab_page.check_opened_new_tab()
             assert text_result == 'This is a sample page', 'The new tab has not opened or an incorrect tab has opened'
 
+        @allure.title('Check "New Window" button')
         def test_new_window(self, driver):
             new_window_page = BrowserWindowPage(driver, 'https://demoqa.com/browser-windows')
             new_window_page.open()
             text_result = new_window_page.check_opened_new_window()
             assert text_result == 'This is a sample page', 'The new window has not opened or an incorrect window has opened'
 
+    @allure.feature('Alerts Page')
     class TestAlertsPage:
+
+        @allure.title('Test "see alert"')
         def test_see_alert(self, driver):
             alert_page = AlertsPage(driver, 'https://demoqa.com/alerts')
             alert_page.open()
             alert_text = alert_page.check_see_alert()
             assert alert_text == 'You clicked a button', 'Alert did not show up'
 
+        @allure.title('Test "alert will appear after 5 seconds"')
         def test_alert_appear_after_5_sec(self, driver):
             alert_page = AlertsPage(driver, 'https://demoqa.com/alerts')
             alert_page.open()
             alert_text = alert_page.check_alert_appear_after_5_sec()
             assert alert_text == 'This alert appeared after 5 seconds', 'Alert did not show up'
 
+        @allure.title('Test ""confirm alert accept')
         def test_confirm_alert_accept(self, driver):
             alert_page = AlertsPage(driver, 'https://demoqa.com/alerts')
             alert_page.open()
             alert_text = alert_page.check_confirm_alert_accept()
             assert alert_text == 'You selected Ok', 'Alert did not show up'
 
+        @allure.title('Test ""confirm alert dismiss')
         def test_confirm_alert_dismiss(self, driver):
             alert_page = AlertsPage(driver, 'https://demoqa.com/alerts')
             alert_page.open()
             alert_text = alert_page.check_confirm_alert_dismiss()
             assert alert_text == 'You selected Cancel', 'Alert did not show up'
 
+        @allure.title('Test "prompt alert"')
         def test_prompt_alert(self, driver):
             alert_page = AlertsPage(driver, 'https://demoqa.com/alerts')
             alert_page.open()
             person_data, prompt_result = alert_page.check_prompt_alert()
             assert person_data in prompt_result, 'Alert did not show up'
 
+    @allure.feature('Frames Page')
     class TestFramesPage:
 
+        @allure.title('Test frames')
         def test_frames(self, driver):
             frames_page = FramesPage(driver, 'https://demoqa.com/frames')
             frames_page.open()
@@ -60,8 +76,10 @@ class TestAlertsFrameWindow:
             assert result_frame1 == ['This is a sample page', '500px', '350px'], 'The frame does not exist'
             assert result_frame2 == ['This is a sample page', '100px', '100px'], 'The frame does not exist'
 
+    @allure.feature('Nested frames Page')
     class TestNestedFramesPage:
 
+        @allure.title('Test nested frames')
         def test_nested_frames(self, driver):
             nested_frames_page = NestedFramesPage(driver, 'https://demoqa.com/nestedframes')
             nested_frames_page.open()
@@ -69,8 +87,10 @@ class TestAlertsFrameWindow:
             assert parent_text == 'Parent frame', 'Nested frames does not exists'
             assert child_text == 'Child Iframe', 'Nested frames does not exists'
 
+    @allure.feature('Modal dialogs Page')
     class TestModalDialogsPage:
 
+        @allure.title('Test modal dialog')
         def test_modal_dialog(self, driver):
             modal_dialog_page = ModalDialogPage(driver, 'https://demoqa.com/modal-dialogs')
             modal_dialog_page.open()

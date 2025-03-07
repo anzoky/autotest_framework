@@ -1,27 +1,34 @@
+import allure
 import pytest
 
 from conftest import driver
 from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage
 
 
+@allure.suite('Interactions')
 class TestInteractions:
 
+    @allure.feature('Sortable Page')
     class TestSortablePage:
 
+        @allure.title('Test Sortable list')
         def test_sortable_list(self, driver):
             sortable_page = SortablePage(driver, 'https://demoqa.com/sortable')
             sortable_page.open()
             list_before, list_after = sortable_page.change_list_order()
             assert list_before != list_after, 'The order of list has not been changed'
 
+        @allure.title('Test Sortable Grid')
         def test_sortable_grid(self, driver):
             sortable_page = SortablePage(driver, 'https://demoqa.com/sortable')
             sortable_page.open()
             grid_before, grid_after = sortable_page.change_grid_order()
             assert grid_before != grid_after, 'The order of list has not been changed'
 
+    @allure.feature('Selectable Page')
     class TestSelectablePage:
 
+        @allure.title('Test Selectable list')
         def test_selectable_list(self, driver):
             selectable_page = SelectablePage(driver, 'https://demoqa.com/selectable')
             selectable_page.open()
@@ -29,6 +36,7 @@ class TestInteractions:
             assert active_elem not in inactive_elem, 'Element was not selected'
             assert active_elem, 'Active element is empty or None'
 
+        @allure.title('Test Selectable Grid')
         def test_selectable_grid(self, driver):
             selectable_page = SelectablePage(driver, 'https://demoqa.com/selectable')
             selectable_page.open()
@@ -36,8 +44,10 @@ class TestInteractions:
             assert active_elem not in inactive_elem, 'TElement was not selected'
             assert active_elem, 'Active element is empty or None'
 
+    @allure.feature('Resizable Page')
     class TestResizablePage:
 
+        @allure.title('Test Resizable Box')
         def test_resizable_box(self, driver):
             resizable_page = ResizablePage(driver, 'https://demoqa.com/resizable')
             resizable_page.open()
@@ -45,20 +55,24 @@ class TestInteractions:
             assert ('500px', '300px') == max_box, 'Maximum size not equal to 500px, 300px'
             assert ('150px', '150px') == min_box, 'Minimum size not equal to 150px, 150px'
 
+        @allure.title('Test Resizable')
         def test_resizable(self, driver):
             resizable_page = ResizablePage(driver, 'https://demoqa.com/resizable')
             resizable_page.open()
             max_size, min_size = resizable_page.change_size_resizable()
             assert min_size != max_size, 'Resizable has not been changed'
 
+    @allure.feature('Droppable Page')
     class TestDroppablePage:
 
+        @allure.title('Test Simple Droppable')
         def test_simple_droppable(self, driver):
             droppable_page = DroppablePage(driver, 'https://demoqa.com/droppable')
             droppable_page.open()
             text = droppable_page.drop_simple()
             assert text == 'Dropped!', 'The element has not been dropped'
 
+        @allure.title('Test Accepts')
         @pytest.mark.parametrize(
             'accept, expected_text', [
                 ('acceptable', 'Dropped!'),
@@ -71,6 +85,7 @@ class TestInteractions:
             text = droppable_page.drop_acceptable(accept)
             assert text == expected_text, f'The expected result is {expected_text}, but not {text}'
 
+        @allure.title('Test Prevent Propagation')
         @pytest.mark.parametrize(
             'inner, outer, expected_text_inner, expected_text_outer', [
                 ('not_greedy_inner', 'not_greedy_outer', 'Dropped!', 'Dropped!'),
@@ -84,6 +99,7 @@ class TestInteractions:
             assert box_text == expected_text_outer, f'Expected outer box text: "{expected_text_outer}", but got: "{box_text}"'
             assert inner_box_text == expected_text_inner, f'Expected inner box text: "{expected_text_inner}", but got: "{inner_box_text}"'
 
+        @allure.title('Test Revert Draggable')
         @pytest.mark.parametrize('param_name', ['will_revert', 'not_revert'])
         def test_revert_draggable_revert_droppable(self, driver, param_name):
             droppable_page = DroppablePage(driver, 'https://demoqa.com/droppable')
