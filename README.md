@@ -23,4 +23,4 @@
    allure serve allure-results
 
 **Аллюр отчет**
-![Allure Report](https://github.com/anzoky/autotest_framework/issues/2#issue-2910433798)
+![Allure Report](https://raw.githubusercontent.com/anzoky/autotest_framework/refs/heads/main/allure_report.png)
